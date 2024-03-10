@@ -48,4 +48,4 @@ planner = load_chat_planner(model)
 executor = load_agent_executor(model, tools, verbose=True) # type: ignore
 agent = PlanAndExecute(planner=planner, executor=executor)
 
-agent.invoke({"input": "Write a Python program that simulates the solar systems, consisting of the sun and the 8 planets. It shall use the known masses and distances of these celstial objects and apply Newtons gravitation law. Start the simulation with all planets and the sun aligned on a line and positioned at their respective known distances from the sun. Then run the simulation for a period of 1000 years."})
+agent.invoke({"input": "Write a Python program that simulates the solar systems, consisting of the sun and the 8 planets. It shall use the known masses and distances of these celestial objects and apply Newtons gravitation law. Start the simulation with all planets and the sun aligned on a line and positioned at their respective known distances from the sun. Then run the simulation for a period of 1000 years."})

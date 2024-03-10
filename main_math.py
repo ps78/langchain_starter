@@ -4,36 +4,38 @@ from langchain.prompts import PromptTemplate
 from langchain_openai import AzureChatOpenAI
 from langchain.agents import load_tools, AgentExecutor, create_react_agent
 from langchain.globals import set_debug
+from utils import load_certs
 
 set_debug(True)
 load_dotenv()
+load_certs()
 
 #prompt = hub.pull("hwchase17/react")
 prompt = PromptTemplate(
-    input_variables=['agent_scratchpad', 'input', 'tool_names', 'tools'], 
+    input_variables=['agent_scratchpad', 'input', 'tool_names', 'tools'],
     template=
         """Solve the following mathematical problem using basic reasoning and the following tools: {tools}
         Call the unkonwn 'X' and abbreviate the other parameters with distinct and suitable letters.
         Rephrase all given pieces of information as equations. Then solve the system of equations using the tools you have. Make sure you take in to account the time dimension. Not all statements are about the present. Some are about the past and some about the future. Just must take this into account
 
         Use the following format:
-        
+
         Question: the input question you must answer
-        
+
         Thought: you should always think about what to do
-        
+
         Action: the action to take, should be one of [{tool_names}]
-        
+
         Action Input: the input to the action
-        
+
         Observation: the result of the action
-        
+
         ... (this Thought/Action/Action Input/Observation can repeat N times)
-        
+
         Thought: I now know the final answer
-        
+
         Final Answer: the final answer to the original input question
-        
+
         Question: {input}
         Thought:{agent_scratchpad}""")
 
