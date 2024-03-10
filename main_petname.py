@@ -1,8 +1,9 @@
 #
 # Generates pet names, based od: https://www.youtube.com/watch?v=lG7Uxts9SXs
 #
+import os
 from dotenv import load_dotenv
-from langchain.llms import OpenAI
+from langchain_openai import AzureChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.agents import load_tools, initialize_agent, AgentType
@@ -14,7 +15,7 @@ def generate_pet_name(animal_type :str, color :str, n :int) -> str:
         input_variables=["animal_type", "color", "n"],
         template="I have a {color} {animal_type} pet and I want a cool name for it. Suggest me {n} cool names for my pet"
     )
-    llm = OpenAI(temperature=0.8)
+    llm = AzureChatOpenAI(temperature=0.8, azure_deployment=os.getenv("AZURE_GPT3_DEPLOYMENT"))
     name_chain = LLMChain(llm=llm, prompt=prompt_template_name, output_key="pet_name")
     response = name_chain({
         "animal_type": animal_type,
@@ -24,7 +25,7 @@ def generate_pet_name(animal_type :str, color :str, n :int) -> str:
     return response["pet_name"]
 
 def langchain_agent():
-    llm = OpenAI(temperature=0.5)
+    llm = AzureChatOpenAI(temperature=0.5, azure_deployment=os.getenv("AZURE_GPT3_DEPLOYMENT"))
     tools = load_tools(["wikipedia", "llm-math"], llm=llm)
     agent = initialize_agent(
         tools=tools,

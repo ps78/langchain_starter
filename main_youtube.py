@@ -1,19 +1,18 @@
 #
 # Answers question about a youtube video
 #
+import os
 from dotenv import load_dotenv
-from langchain.document_loaders import YoutubeLoader
+from langchain_community.document_loaders import YoutubeLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.llms import OpenAI
+from langchain_openai import AzureChatOpenAI, AzureOpenAIEmbeddings
 from langchain.chains import LLMChain
-from langchain.embeddings import OpenAIEmbeddings
 from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
 from langchain.vectorstores import FAISS
 
 load_dotenv()
 
-embeddings = OpenAIEmbeddings()
+embeddings = AzureOpenAIEmbeddings(azure_deployment=os.getenv("AZURE_EMBEDDING_DEPLOYMENT"))
 
 def create_vector_db_from_youtube_url(video_url :str) -> FAISS:
     loader = YoutubeLoader.from_youtube_url(video_url)
@@ -27,7 +26,7 @@ def get_response_from_query(db, query, k):
     docs = db.similarity_search(query, k=k)
     docs_page_content = " ".join([d.page_content for d in docs])
 
-    llm = OpenAI()
+    llm = AzureChatOpenAI(azure_deployment=os.getenv("AZURE_GPT3_DEPLOYMENT"))
     prompt = PromptTemplate(
         input_variables=["question", "docs"],
         template="""
