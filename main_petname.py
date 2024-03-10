@@ -17,7 +17,7 @@ def generate_pet_name(animal_type :str, color :str, n :int) -> str:
     )
     llm = AzureChatOpenAI(temperature=0.8, azure_deployment=os.getenv("AZURE_GPT3_DEPLOYMENT"))
     name_chain = LLMChain(llm=llm, prompt=prompt_template_name, output_key="pet_name")
-    response = name_chain({
+    response = name_chain.invoke({
         "animal_type": animal_type,
         "color": color,
          "n": n
@@ -26,7 +26,7 @@ def generate_pet_name(animal_type :str, color :str, n :int) -> str:
 
 def langchain_agent():
     llm = AzureChatOpenAI(temperature=0.5, azure_deployment=os.getenv("AZURE_GPT3_DEPLOYMENT"))
-    tools = load_tools(["wikipedia", "llm-math"], llm=llm)
+    tools = load_tools(tool_names=["wikipedia", "llm-math"], llm=llm)
     agent = initialize_agent(
         tools=tools,
         llm=llm, 
@@ -40,4 +40,4 @@ def langchain_agent():
 # Main
 #
 print(generate_pet_name("dog", "pink", 5))
-langchain_agent()
+#langchain_agent()
