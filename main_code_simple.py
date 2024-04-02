@@ -12,9 +12,11 @@ from langchain import hub
 from langchain_community.tools.tavily_search import TavilySearchResults
 from langchain.agents import Tool
 from langchain_experimental.utilities import PythonREPL
+from utils import load_certs
 
 set_debug(True)
 load_dotenv()
+load_certs()
 
 bearly_tool = BearlyInterpreterTool(api_key=os.getenv("BEARLY_API_KEY")).as_tool()
 
@@ -25,7 +27,7 @@ repl_tool = Tool(
     func=python_repl.run,
 )
 
-tools = [repl_tool, bearly_tool]
+tools = [repl_tool]
 
 llm = AzureChatOpenAI(temperature=0.0, azure_deployment=os.getenv("AZURE_GPT4_DEPLOYMENT"))
 
@@ -75,7 +77,7 @@ result = agent_executor.invoke({
     "current_working_directory": current_working_directory,
     "operating_system": operating_system,
     "relevant_procedures": relevant_procedures,
-    "username": username 
+    "username": username
 })
 
 print(result)
