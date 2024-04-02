@@ -7,7 +7,9 @@ from langchain_openai import AzureChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.agents import load_tools, initialize_agent, AgentType
+from utils import load_certs
 
+load_certs()
 load_dotenv()
 
 def generate_pet_name(animal_type :str, color :str, n :int) -> str:
@@ -29,8 +31,8 @@ def langchain_agent():
     tools = load_tools(tool_names=["wikipedia", "llm-math"], llm=llm)
     agent = initialize_agent(
         tools=tools,
-        llm=llm, 
-        agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION, 
+        llm=llm,
+        agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
         verbose=True
     )
     result = agent.run("What is the average age of a dog? Multiply the age by 3")
