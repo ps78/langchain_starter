@@ -15,7 +15,7 @@ prompt = PromptTemplate(
     input_variables=['agent_scratchpad', 'input', 'tool_names', 'tools'],
     template=
         """Solve the following mathematical problem using basic reasoning and the following tools: {tools}
-        Call the unkonwn 'X' and abbreviate the other parameters with distinct and suitable letters.
+        Call the unknown 'X' and abbreviate the other parameters with distinct and suitable letters.
         Rephrase all given pieces of information as equations. Then solve the system of equations using the tools you have. Make sure you take in to account the time dimension. Not all statements are about the present. Some are about the past and some about the future. Just must take this into account
 
         Use the following format:
