@@ -1,3 +1,6 @@
 .env
 envs/**
 cabundle.pem
+Chinook.db
+.vscode/**
+__pycache__/**

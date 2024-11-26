@@ -22,4 +22,4 @@ def generate_pet_name(animal_type :str, color :str, n :int) -> str:
     })
     return response["pet_name"]
 
-print(generate_pet_name("elephant", "purple", 5))
+print(generate_pet_name("snake", "rainbow", 10))

@@ -16,7 +16,7 @@ def generate_chain():
         input_variables=["ingredients", "course"],
         template="You are a professional chef and expert in cooking all kinds of foods from around the world. You are also very proficient in creating new recipes. Given the following list of ingredients, create a recipe for an inspiring {course}. These are the ingredients:\n {ingredients}\n\nUse metric units in your recipe descriptions, like °C, ml, g. Do not use °F, cups, ounces, pounds."
     )
-    model = AzureChatOpenAI(temperature=0.8, azure_deployment=os.getenv("AZURE_GPT3_DEPLOYMENT"))
+    model = AzureChatOpenAI(temperature=0.8, azure_deployment=os.getenv("AZURE_GPT4_DEPLOYMENT"))
 
     chain = (
         RunnablePassthrough()

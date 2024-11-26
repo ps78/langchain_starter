@@ -1,16 +1,9 @@
 import os
 from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI
-from langchain.schema import StrOutputParser
 from langchain.prompts import PromptTemplate
-from langchain_core.runnables import RunnablePassthrough
-from langchain.chains import LLMChain
-from langchain.agents import load_tools, AgentType, AgentExecutor, create_react_agent
-from langchain.tools import Tool
-from langchain_community.utilities.google_search import GoogleSearchAPIWrapper
-from langchain.tools.ddg_search.tool import DuckDuckGoSearchRun
+from langchain.agents import AgentExecutor, create_react_agent
 from langchain_community.tools.tavily_search import TavilySearchResults
-from langchain import hub
 from langchain.globals import set_debug
 from utils import load_certs
 
@@ -20,7 +13,7 @@ load_dotenv()
 load_certs()
 
 model = AzureChatOpenAI(temperature=0.2, azure_deployment=os.getenv("AZURE_GPT4_DEPLOYMENT"))
-tools = [TavilySearchResults()] #DuckDuckGoSearchRun()
+tools = [TavilySearchResults()] 
 # base for this prompt is from hub.pull("hwchase17/react")
 prompt = PromptTemplate(
     input_variables=['agent_scratchpad', 'tool_names', 'tools', 'period', 'destination', 'type'],
