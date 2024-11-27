@@ -26,7 +26,7 @@ def get_response_from_query(db, query, k):
     docs = db.similarity_search(query, k=k)
     docs_page_content = " ".join([d.page_content for d in docs])
 
-    llm = AzureChatOpenAI(azure_deployment=os.getenv("AZURE_GPT3_DEPLOYMENT"))
+    llm = AzureChatOpenAI(azure_deployment=os.getenv("AZURE_GPT4_DEPLOYMENT"))
     prompt = PromptTemplate(
         input_variables=["question", "docs"],
         template="""

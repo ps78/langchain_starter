@@ -34,7 +34,9 @@ prompt = PromptTemplate(
 
     Begin!
 
-    Question: You are a professional travel agent specialized in creating individual travel experiences for your customers. You are requested to create a travel iternary for {period} to {destination}. This is a {type} trip.
+    Question: You are a professional travel agent specialized in creating individual travel experiences for your customers. 
+    You are requested to create a travel iternary for {period} to {destination}. 
+    This is a {type} trip.
 
     Thought:{agent_scratchpad}
     """

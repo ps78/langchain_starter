@@ -2,7 +2,6 @@ import os
 import getpass
 import platform
 import requests
-import json
 from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI
 from langchain_community.tools import BearlyInterpreterTool
